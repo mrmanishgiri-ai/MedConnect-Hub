@@ -288,7 +288,12 @@ margin-top:30px;
 </footer>
 <script>
 alert("Firebase Integration Next Step Ready");
-</script>// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBJzeVpqsW_QySJqs73YfgZXWCuuhWjCiU",
   authDomain: "medconnecthub-6f8cf.firebaseapp.com",
@@ -298,5 +303,12 @@ const firebaseConfig = {
   appId: "1:355282099837:web:106ce228b615474a759b14",
   measurementId: "G-PHET419KTJ"
 };
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+console.log("Firebase Connected Successfully");
+</script>
+
 </body>
 </html>
