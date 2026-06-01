@@ -261,8 +261,7 @@ margin-top:30px;
 
 <h2>Featured Vendors</h2>
 
-<div class="cards">
-
+<div class="cards" id="vendorList">
 <div class="card">
 <h3>ABC Surgical</h3>
 <p>Surgical Instrument Supplier</p>
@@ -291,7 +290,7 @@ alert("Firebase Integration Next Step Ready");
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJzeVpqsW_QySJqs73YfgZXWCuuhWjCiU",
@@ -330,6 +329,7 @@ createdAt: new Date()
 });
 
 alert("Vendor Registered Successfully");
+  loadVendors();
 
 } catch(error) {
 
@@ -337,6 +337,31 @@ alert(error.message);
 
 }
 
+  async function loadVendors(){
+
+const vendorList = document.getElementById("vendorList");
+
+vendorList.innerHTML = "";
+
+const querySnapshot = await getDocs(collection(db,"vendors"));
+
+querySnapshot.forEach((doc)=>{
+
+const data = doc.data();
+
+vendorList.innerHTML += `
+<div class="card">
+<h3>${data.companyName}</h3>
+<p>${data.category}</p>
+<p>${data.mobile}</p>
+</div>
+`;
+
+});
+
+}
+
+loadVendors();
 }
 </script>
 
