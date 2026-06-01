@@ -291,7 +291,7 @@ alert("Firebase Integration Next Step Ready");
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJzeVpqsW_QySJqs73YfgZXWCuuhWjCiU",
@@ -307,6 +307,37 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 console.log("Firebase Connected Successfully");
+ 
+window.saveVendor = async function(){
+
+const companyName = document.getElementById("companyName").value;
+const ownerName = document.getElementById("ownerName").value;
+const mobile = document.getElementById("mobile").value;
+const email = document.getElementById("email").value;
+const category = document.getElementById("category").value;
+const profile = document.getElementById("profile").value;
+
+try {
+
+await addDoc(collection(db, "vendors"), {
+companyName,
+ownerName,
+mobile,
+email,
+category,
+profile,
+createdAt: new Date()
+});
+
+alert("Vendor Registered Successfully");
+
+} catch(error) {
+
+alert(error.message);
+
+}
+
+}
 </script>
 
 </body>
