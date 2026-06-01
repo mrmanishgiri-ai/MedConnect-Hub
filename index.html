@@ -262,11 +262,7 @@ margin-top:30px;
 <h2>Featured Vendors</h2>
 
 <div class="cards" id="vendorList">
-<div class="card">
-<h3>ABC Surgical</h3>
-<p>Surgical Instrument Supplier</p>
 </div>
-
 <div class="card">
 <h3>XYZ CSSD Solutions</h3>
 <p>CSSD Equipment Supplier</p>
@@ -318,6 +314,53 @@ const profile = document.getElementById("profile").value;
 
 try {
 
+await addDoc(collection(db, "vendors"), {
+companyName,
+ownerName,
+mobile,
+email,
+category,
+profile,
+createdAt: new Date()
+});
+
+alert("Vendor Registered Successfully");
+
+loadVendors();
+
+} catch(error) {
+
+alert(error.message);
+
+}
+
+};
+
+async function loadVendors(){
+
+const vendorList = document.getElementById("vendorList");
+
+vendorList.innerHTML = "";
+
+const querySnapshot = await getDocs(collection(db,"vendors"));
+
+querySnapshot.forEach((doc)=>{
+
+const data = doc.data();
+
+vendorList.innerHTML += `
+<div class="card">
+<h3>${data.companyName}</h3>
+<p>${data.category}</p>
+<p>${data.mobile}</p>
+</div>
+`;
+
+});
+
+}
+
+loadVendors();
 await addDoc(collection(db, "vendors"), {
 companyName,
 ownerName,
