@@ -340,19 +340,14 @@ querySnapshot.forEach((doc)=>{
 const data = doc.data();
 
 vendorList.innerHTML += `
-<section class="section">
-
-<h2>Featured Vendors</h2>
-
-<div class="cards" id="vendorList">
+<div class="card">
+<h3>${data.companyName}</h3>
+<p>${data.category}</p>
+<p>${data.mobile}</p>
 </div>
-
-</section>`;
+`;
 
 });
-
-}
-
 loadVendors();
 </script>
 </body>
