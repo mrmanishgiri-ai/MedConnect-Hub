@@ -177,7 +177,8 @@ margin-top:30px;
 
 <div class="search-box">
 <input type="text" id="searchInput" placeholder="Search Vendors...">
-<button onclick="searchVendors()">Search</button></div>
+<button onclick="window.searchVendors()">Search</button>
+  </div>
 </section>
 
 <section class="section">
@@ -323,9 +324,10 @@ alert(error.message);
 
 }
 
-};
+});
 
 window.searchVendors = async function(){
+alert("Search Working");
 
 const searchText = document.getElementById("searchInput").value.toLowerCase();
 
@@ -383,7 +385,7 @@ vendorList.innerHTML += `
 </div>
 `;
 
-});
+};
 
 }
 
