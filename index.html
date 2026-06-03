@@ -315,7 +315,6 @@ createdAt: new Date()
 });
 
 alert("Vendor Registered Successfully");
-
 loadVendors();
 
 } catch(error) {
@@ -325,6 +324,44 @@ alert(error.message);
 }
 
 };
+
+async function searchVendors(){
+
+const searchText = document.getElementById("searchInput").value.toLowerCase();
+
+const vendorList = document.getElementById("vendorList");
+
+vendorList.innerHTML = "";
+
+const querySnapshot = await getDocs(collection(db,"vendors"));
+
+querySnapshot.forEach((doc)=>{
+
+const data = doc.data();
+
+if(
+(data.companyName && data.companyName.toLowerCase().includes(searchText)) ||
+(data.category && data.category.toLowerCase().includes(searchText))
+){
+
+vendorList.innerHTML += `
+<div class="card">
+<h3>${data.companyName}</h3>
+<p>${data.category}</p>
+<p>${data.mobile}</p>
+</div>
+`;
+
+}
+
+});
+
+}
+
+
+
+
+
 
 async function loadVendors(){
 
