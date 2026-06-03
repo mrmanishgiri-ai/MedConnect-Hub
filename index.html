@@ -267,10 +267,6 @@ margin-top:30px;
 <footer>
 © 2026 MedConnect Hub | India's Medical Education & Vendor Directory Platform
 </footer>
-<script>
-alert("Firebase Integration Next Step Ready");
-</script>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
@@ -323,6 +319,12 @@ alert(error.message);
 
 };
 
+async function loadVendors(){
+
+const vendorList = document.getElementById("vendorList");
+
+vendorList.innerHTML = "";
+
 const querySnapshot = await getDocs(collection(db,"vendors"));
 
 querySnapshot.forEach((doc)=>{
@@ -338,7 +340,11 @@ vendorList.innerHTML += `
 `;
 
 });
+
+}
+
 loadVendors();
+
 </script>
 </body>
 </html>
