@@ -295,9 +295,17 @@ const email = document.getElementById("email").value;
 const category = document.getElementById("category").value;
 const profile = document.getElementById("profile").value;
 
-try {
+if(companyName === "" || mobile === ""){
+alert("Please fill Company Name and Mobile Number");
+return;
+}
 
-await addDoc(collection(db, "vendors"), {
+if(category === "Select Category"){
+alert("Please Select Category");
+return;
+}
+try {
+  await addDoc(collection(db, "vendors"), {
 companyName,
 ownerName,
 mobile,
