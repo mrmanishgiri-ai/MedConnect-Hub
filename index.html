@@ -1,292 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MedConnect Hub</title>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:#f4f7fc;
-}
-
-header{
-background:#0066cc;
-color:white;
-padding:15px;
-}
-
-header h1{
-text-align:center;
-}
-
-nav{
-background:#004c99;
-padding:10px;
-text-align:center;
-}
-
-nav a{
-color:white;
-text-decoration:none;
-margin:15px;
-font-weight:bold;
-}
-
-.hero{
-background:linear-gradient(135deg,#0066cc,#00aaff);
-color:white;
-padding:60px 20px;
-text-align:center;
-}
-
-.hero h2{
-font-size:40px;
-margin-bottom:15px;
-}
-
-.hero p{
-font-size:18px;
-}
-
-.search-box{
-margin-top:20px;
-}
-
-.search-box input{
-padding:12px;
-width:60%;
-max-width:500px;
-border:none;
-border-radius:5px;
-}
-
-.search-box button{
-padding:12px 20px;
-background:#ff9800;
-border:none;
-color:white;
-border-radius:5px;
-cursor:pointer;
-}
-
-.section{
-padding:40px 20px;
-}
-
-.section h2{
-text-align:center;
-margin-bottom:30px;
-color:#0066cc;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.card{
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
-text-align:center;
-}
-
-.card h3{
-color:#0066cc;
-margin-bottom:10px;
-}
-
-.btn{
-display:inline-block;
-background:#0066cc;
-color:white;
-padding:10px 15px;
-border-radius:5px;
-text-decoration:none;
-margin-top:10px;
-}
-
-.vendor-form{
-background:white;
-padding:20px;
-border-radius:10px;
-max-width:800px;
-margin:auto;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
-
-.vendor-form input,
-.vendor-form textarea,
-.vendor-form select{
-width:100%;
-padding:10px;
-margin-bottom:10px;
-border:1px solid #ddd;
-border-radius:5px;
-}
-
-.vendor-form button{
-background:#28a745;
-color:white;
-padding:12px;
-border:none;
-width:100%;
-border-radius:5px;
-cursor:pointer;
-}
-
-footer{
-background:#003366;
-color:white;
-text-align:center;
-padding:20px;
-margin-top:30px;
-}
-
-</style>
-</head>
-
-<body>
-
-<header>
-<h1>MedConnect Hub</h1>
-</header>
-
-<nav>
-<a href="#">Home</a>
-<a href="#">MCQ Tests</a>
-<a href="#">Vendors</a>
-<a href="#">Jobs</a>
-<a href="#">Contact</a>
-</nav>
-
-<section class="hero">
-<h2>Medical Education & Vendor Directory</h2>
-<p>GNM | CSSD | DMLT | OT Technician | Dialysis Technician</p>
-
-<div class="search-box">
-<input type="text" id="searchInput" placeholder="Search Vendors...">
-<button onclick="window.searchVendors()">Search</button>
-  </div>
-</section>
-
-<section class="section">
-
-<h2>MCQ Categories</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>GNM MCQ</h3>
-<p>Practice Nursing Questions</p>
-<a href="#" class="btn">Start Test</a>
-</div>
-
-<div class="card">
-<h3>CSSD MCQ</h3>
-<p>CSSD Technician & Supervisor</p>
-<a href="#" class="btn">Start Test</a>
-</div>
-
-<div class="card">
-<h3>DMLT MCQ</h3>
-<p>Laboratory Technician MCQ</p>
-<a href="#" class="btn">Start Test</a>
-</div>
-
-<div class="card">
-<h3>OT Technician MCQ</h3>
-<p>Operation Theatre Questions</p>
-<a href="#" class="btn">Start Test</a>
-</div>
-
-<div class="card">
-<h3>Dialysis Technician MCQ</h3>
-<p>Dialysis Technician Exam Practice</p>
-<a href="#" class="btn">Start Test</a>
-</div>
-
-<div class="card">
-<h3>Radiology MCQ</h3>
-<p>Radiology Technician Questions</p>
-<a href="#" class="btn">Start Test</a>
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2>Vendor Registration</h2>
-<div class="vendor-form">
-<input type="text" id="companyName" placeholder="Company Name">
-
-<input type="text" id="ownerName" placeholder="Owner Name">
-
-<input type="text" id="mobile" placeholder="Mobile Number">
-
-<input type="email" id="email" placeholder="Email Address">
-<select id="category">
-<option value="">Select Category</option>
-<option>CSSD Supplier</option>
-<option>Surgical Supplier</option>
-<option>OT Equipment Supplier</option>
-<option>Dialysis Equipment Supplier</option>
-<option>Laboratory Supplier</option>
-</select>
-
-<textarea id="profile" rows="5" placeholder="Company Profile"></textarea>
-
-<button onclick="saveVendor()">Register Vendor</button>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2>Featured Vendors</h2>
-
-<div class="cards" id="vendorList">
-</div>
-
-</section>
-
-<footer>
-© 2026 MedConnect Hub | India's Medical Education & Vendor Directory Platform
-</footer>
-<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBJzeVpqsW_QySJqs73YfgZXWCuuhWjCiU",
-  authDomain: "medconnecthub-6f8cf.firebaseapp.com",
-  projectId: "medconnecthub-6f8cf",
-  storageBucket: "medconnecthub-6f8cf.firebasestorage.app",
-  messagingSenderId: "355282099837",
-  appId: "1:355282099837:web:106ce228b615474a759b14",
-  measurementId: "G-PHET419KTJ"
+apiKey: "AIzaSyBJzeVpqsW_QySJqs73YfgZXWCuuhWjCiU",
+authDomain: "medconnecthub-6f8cf.firebaseapp.com",
+projectId: "medconnecthub-6f8cf",
+storageBucket: "medconnecthub-6f8cf.firebasestorage.app",
+messagingSenderId: "355282099837",
+appId: "1:355282099837:web:106ce228b615474a759b14",
+measurementId: "G-PHET419KTJ"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log("Firebase Connected Successfully");
- 
-window.saveVendor = async function(){
+// Register Vendor
+window.saveVendor = async function () {
 
 const companyName = document.getElementById("companyName").value;
 const ownerName = document.getElementById("ownerName").value;
@@ -295,102 +24,33 @@ const email = document.getElementById("email").value;
 const category = document.getElementById("category").value;
 const profile = document.getElementById("profile").value;
 
-if(companyName === "" || mobile === ""){
+if (companyName === "" || mobile === "") {
 alert("Please fill Company Name and Mobile Number");
 return;
 }
 
-if(category === "Select Category"){
+if (category === "") {
 alert("Please Select Category");
 return;
 }
+
 try {
-  await addDoc(collection(db, "vendors"), {
-companyName,
-ownerName,
-mobile,
-email,
-category,
-profile,
-createdAt: new Date()
+
+```
+await addDoc(collection(db, "vendors"), {
+  companyName,
+  ownerName,
+  mobile,
+  email,
+  category,
+  profile,
+  createdAt: new Date()
 });
 
 alert("Vendor Registered Successfully");
-loadVendors();
 
-} catch(error) {
-
-alert(error.message);
-
-}
-
-});
-
-window.searchVendors = async function(){
-alert("Search Working");
-
-const searchText = document.getElementById("searchInput").value.toLowerCase();
-
-const vendorList = document.getElementById("vendorList");
-
-vendorList.innerHTML = "";
-
-const querySnapshot = await getDocs(collection(db,"vendors"));
-
-querySnapshot.forEach((doc)=>{
-
-const data = doc.data();
-
-if(
-(data.companyName && data.companyName.toLowerCase().includes(searchText)) ||
-(data.category && data.category.toLowerCase().includes(searchText))
-){
-
-vendorList.innerHTML += `
-<div class="card">
-<h3>${data.companyName}</h3>
-<p>${data.category}</p>
-<p>${data.mobile}</p>
-</div>
-`;
-
-}
-
-});
-
-}
-
-
-
-
-
-
-async function loadVendors(){
-
-const vendorList = document.getElementById("vendorList");
-
-vendorList.innerHTML = "";
-
-const querySnapshot = await getDocs(collection(db,"vendors"));
-
-querySnapshot.forEach((doc)=>{
-
-const data = doc.data();
-
-vendorList.innerHTML += `
-<div class="card">
-<h3>${data.companyName}</h3>
-<p>${data.category}</p>
-<p>${data.mobile}</p>
-</div>
-`;
-
-};
-
-}
-
-loadVendors();
-
-</script>
-</body>
-</html>
+document.getElementById("companyName").value = "";
+document.getElementById("ownerName").value = "";
+document.getElementById("mobile").value = "";
+document.getElementById("email").value = "";
+```
