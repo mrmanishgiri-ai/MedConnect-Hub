@@ -14,7 +14,6 @@ measurementId: "G-PHET419KTJ"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Register Vendor
 window.saveVendor = async function () {
 
 const companyName = document.getElementById("companyName").value;
@@ -53,4 +52,81 @@ document.getElementById("companyName").value = "";
 document.getElementById("ownerName").value = "";
 document.getElementById("mobile").value = "";
 document.getElementById("email").value = "";
+document.getElementById("profile").value = "";
+document.getElementById("category").value = "";
+
+loadVendors();
 ```
+
+} catch (error) {
+alert(error.message);
+}
+
+};
+
+window.searchVendors = async function () {
+
+const searchText = document
+.getElementById("searchInput")
+.value
+.toLowerCase();
+
+const vendorList = document.getElementById("vendorList");
+
+vendorList.innerHTML = "";
+
+const querySnapshot = await getDocs(collection(db, "vendors"));
+
+querySnapshot.forEach((doc) => {
+
+```
+const data = doc.data();
+
+if (
+  (data.companyName &&
+    data.companyName.toLowerCase().includes(searchText)) ||
+  (data.category &&
+    data.category.toLowerCase().includes(searchText))
+) {
+
+  vendorList.innerHTML += `
+  <div class="card">
+    <h3>${data.companyName}</h3>
+    <p>${data.category}</p>
+    <p>${data.mobile}</p>
+  </div>
+  `;
+}
+```
+
+});
+
+};
+
+async function loadVendors() {
+
+const vendorList = document.getElementById("vendorList");
+
+vendorList.innerHTML = "";
+
+const querySnapshot = await getDocs(collection(db, "vendors"));
+
+querySnapshot.forEach((doc) => {
+
+```
+const data = doc.data();
+
+vendorList.innerHTML += `
+<div class="card">
+  <h3>${data.companyName}</h3>
+  <p>${data.category}</p>
+  <p>${data.mobile}</p>
+</div>
+`;
+```
+
+});
+
+}
+
+loadVendors();
