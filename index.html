@@ -1,41 +1,11 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-const firebaseConfig = {
-apiKey: "AIzaSyBJzeVpqsW_QySJqs73YfgZXWCuuhWjCiU",
-authDomain: "medconnecthub-6f8cf.firebaseapp.com",
-projectId: "medconnecthub-6f8cf",
-storageBucket: "medconnecthub-6f8cf.firebasestorage.app",
-messagingSenderId: "355282099837",
-appId: "1:355282099837:web:106ce228b615474a759b14",
-measurementId: "G-PHET419KTJ"
-};
+delete kar do.
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+Aapka JavaScript aisa dikhna chahiye:
 
-window.saveVendor = async function () {
-
-const companyName = document.getElementById("companyName").value;
-const ownerName = document.getElementById("ownerName").value;
-const mobile = document.getElementById("mobile").value;
-const email = document.getElementById("email").value;
-const category = document.getElementById("category").value;
-const profile = document.getElementById("profile").value;
-
-if (companyName === "" || mobile === "") {
-alert("Please fill Company Name and Mobile Number");
-return;
-}
-
-if (category === "") {
-alert("Please Select Category");
-return;
-}
-
+```javascript
 try {
 
-```
 await addDoc(collection(db, "vendors"), {
   companyName,
   ownerName,
@@ -56,77 +26,7 @@ document.getElementById("profile").value = "";
 document.getElementById("category").value = "";
 
 loadVendors();
-```
 
 } catch (error) {
-alert(error.message);
+  alert(error.message);
 }
-
-};
-
-window.searchVendors = async function () {
-
-const searchText = document
-.getElementById("searchInput")
-.value
-.toLowerCase();
-
-const vendorList = document.getElementById("vendorList");
-
-vendorList.innerHTML = "";
-
-const querySnapshot = await getDocs(collection(db, "vendors"));
-
-querySnapshot.forEach((doc) => {
-
-```
-const data = doc.data();
-
-if (
-  (data.companyName &&
-    data.companyName.toLowerCase().includes(searchText)) ||
-  (data.category &&
-    data.category.toLowerCase().includes(searchText))
-) {
-
-  vendorList.innerHTML += `
-  <div class="card">
-    <h3>${data.companyName}</h3>
-    <p>${data.category}</p>
-    <p>${data.mobile}</p>
-  </div>
-  `;
-}
-```
-
-});
-
-};
-
-async function loadVendors() {
-
-const vendorList = document.getElementById("vendorList");
-
-vendorList.innerHTML = "";
-
-const querySnapshot = await getDocs(collection(db, "vendors"));
-
-querySnapshot.forEach((doc) => {
-
-```
-const data = doc.data();
-
-vendorList.innerHTML += `
-<div class="card">
-  <h3>${data.companyName}</h3>
-  <p>${data.category}</p>
-  <p>${data.mobile}</p>
-</div>
-`;
-```
-
-});
-
-}
-
-loadVendors();
